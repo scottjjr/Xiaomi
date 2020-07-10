@@ -27,6 +27,7 @@ metadata {
 		capability "Sensor"
 		capability "Power Meter"
 		capability "Energy Meter"
+		capability "Alarm"
 
 		attribute "lastCheckin", "string"
 		attribute "lastCheckinDate", "String"
@@ -187,6 +188,24 @@ def off() {
 
 def on() {
 	log.debug "${device.displayName}: Turning switch on"
+	sendEvent(name: "switch", value: "on")
+	"st cmd 0x${device.deviceNetworkId} 1 6 1 {}"
+}
+
+def both() {
+	log.debug "${device.displayName}: Turning strobe and siren on"
+	sendEvent(name: "switch", value: "on")
+	"st cmd 0x${device.deviceNetworkId} 1 6 1 {}"
+}
+
+def siren() {
+	log.debug "${device.displayName}: Turning siren on"
+	sendEvent(name: "switch", value: "on")
+	"st cmd 0x${device.deviceNetworkId} 1 6 1 {}"
+}
+
+def strobe() {
+	log.debug "${device.displayName}: Turning strobe on"
 	sendEvent(name: "switch", value: "on")
 	"st cmd 0x${device.deviceNetworkId} 1 6 1 {}"
 }
